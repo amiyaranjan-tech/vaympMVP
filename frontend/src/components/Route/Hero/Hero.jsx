@@ -12,7 +12,7 @@ const Hero = () => {
       const nextIndex = (currentSlide + 1) % backgroundImageUrls.length;
       setCurrentSlide(nextIndex);
     };
-  
+
     // Function to handle previous slide
     const prevSlide = () => {
       const prevIndex = (currentSlide - 1 + backgroundImageUrls.length) % backgroundImageUrls.length;
@@ -24,7 +24,7 @@ const Hero = () => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % backgroundImageUrls.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, []);  
 
   return (
     <div
@@ -44,7 +44,7 @@ const Hero = () => {
         </button>
         <button
           className=" text-black px-4 py-2 rounded absolute right-5 top-1/2 transform -translate-y-1/2"
-          // bg-gray-800
+          //bg-gray-800
           onClick={nextSlide}
         >
           Next
@@ -65,9 +65,20 @@ const Hero = () => {
           </div>
         </Link>
       </div>
+      {/* dost for indicating current slide */}
+      <div className="absolute bottom-5 left-0 right-0 flex justify-center">
+        {backgroundImageUrls.map((_, index) => (
+          <span
+            key={index}
+            className={`h-3 w-3 mx-1 rounded-full cursor-pointer ${index === currentSlide ? 'bg-black' : 'bg-gray-300'}`}
+            onClick={() => setCurrentSlide(index)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
 
 export default Hero;
+
 

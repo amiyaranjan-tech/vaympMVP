@@ -22,7 +22,8 @@ export const navItems = [
     },
     {
       title: "Shops",
-      url: "/Shops",
+      // url: "../pages/Shop/ShopsPage",
+      url:"/shop"
     },
   ];
   
