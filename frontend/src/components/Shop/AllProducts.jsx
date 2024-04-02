@@ -1,3 +1,4 @@
+
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
 import React, { useEffect } from "react";
@@ -24,12 +25,27 @@ const AllProducts = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "Product Id", minWidth: 150, flex: 0.7 },
+    { field: "image", headerName: "Product Image", minWidth: 180, flex: 0.7,
+      renderCell: (params) => {
+        return (
+          <Link to={`/product/${params.id}`}>
+            <img src={params.value} alt="Product" style={{ width: 50, height: 50 }} />
+          </Link>
+        );
+      }
+    },
     {
       field: "name",
       headerName: "Name",
       minWidth: 180,
       flex: 1.4,
+      renderCell: (params) => {
+        return (
+          <Link to={`/product/${params.id}`}>
+            {params.value}
+          </Link>
+        );
+      }
     },
     {
       field: "price",
@@ -44,7 +60,6 @@ const AllProducts = () => {
       minWidth: 80,
       flex: 0.5,
     },
-
     {
       field: "sold",
       headerName: "Sold out",
@@ -61,13 +76,11 @@ const AllProducts = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={`/product/${params.id}`}>
-              <Button>
-                <AiOutlineEye size={20} />
-              </Button>
-            </Link>
-          </>
+          <Link to={`/product/${params.id}`}>
+            <Button>
+              <AiOutlineEye size={20} />
+            </Button>
+          </Link>
         );
       },
     },
@@ -80,28 +93,22 @@ const AllProducts = () => {
       sortable: false,
       renderCell: (params) => {
         return (
-          <>
-            <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} />
-            </Button>
-          </>
+          <Button onClick={() => handleDelete(params.id)}>
+            <AiOutlineDelete size={20} />
+          </Button>
         );
       },
     },
   ];
 
-  const row = [];
-
-  products &&
-    products.forEach((item) => {
-      row.push({
-        id: item._id,
-        name: item.name,
-        price: "Rs. " + item.discountPrice,
-        Stock: item.stock,
-        sold: item?.sold_out,
-      });
-    });
+  const rows = products ? products.map((item) => ({
+    id: item._id,
+    image: item.images && item.images[0]?.url, // Assuming item.images is an array of image objects
+    name: item.name,
+    price: "Rs. " + item.discountPrice,
+    Stock: item.stock,
+    sold: item?.sold_out,
+  })) : [];
 
   return (
     <>
@@ -110,7 +117,7 @@ const AllProducts = () => {
       ) : (
         <div className="w-full mx-8 pt-1 mt-10 bg-white">
           <DataGrid
-            rows={row}
+            rows={rows}
             columns={columns}
             pageSize={10}
             disableSelectionOnClick

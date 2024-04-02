@@ -19,4 +19,4 @@ const ShopAllProducts = () => {
   )
 }
 
-export default ShopAllProducts
+export default ShopAllProducts;

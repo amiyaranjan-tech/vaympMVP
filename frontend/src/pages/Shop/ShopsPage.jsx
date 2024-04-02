@@ -1,43 +1,4 @@
-// import React, { useEffect, useState } from "react";
-// import Footer from "../../components/Layout/Footer";
-// import Header from "../../components/Layout/Header";
-// import ShopCard from "../../components/ShopCard/ShopCard";
-// import { useSelector } from "react-redux";
 
-// const ShopsPage = () => {
-//   const { allProducts, isLoading } = useSelector((state) => state.products)
-//   const [shopList, setShopList] = useState([]);
-//   console.log("allProduct", allProducts, "isLoading", isLoading)
-//   useEffect(() => {
-//     if (!isLoading) {
-//       let p = allProducts.map((val) => {
-//         return val.shop;
-//       })
-//       setShopList(p)
-//       console.log("firstp", p)
-//     }
-
-//   }, [isLoading])
-//   console.log("s1", allProducts)
-//   return (
-//     <>
-//       <Header />
-//       {isLoading ? <h1>Loading</h1> : <div className="container mx-auto">
-//         <h1 className="text-3xl font-bold mb-8 text-center">Our Shops</h1>
-//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-//          {shopList.map((val)=>{
-//           console.log("val",val)
-//         return <ShopCard shopName={val.name} image={val.avatar.url} shopId={val._id} />
-//           })}
-//         </div>
-//       </div>}
-
-//       <Footer />
-//     </>
-//   );
-// };
-
-// export default ShopsPage;
 
 import React, { useEffect, useState } from "react";
 import Footer from "../../components/Layout/Footer";
@@ -75,7 +36,7 @@ const ShopsPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {shopList.map((shop) => (
               <ShopCard
-                key={shop._id} // Assuming shop object has a unique identifier like _id
+                key={shop._id} 
                 shopName={shop.name}
                 image={shop.avatar.url}
                 shopId={shop._id}
